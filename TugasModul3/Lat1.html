@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #cccccc;
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background-color: #2196f3;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1a79c7;
+        }
+
+        #hasil {
+            margin-top: 20px;
+            background-color: #e6f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Form Input Data Mahasiswa</h2>
+        <form id="formMahasiswa">
+            <label for="nim">NIM:</label>
+            <input type="text" id="nim">
+
+            <label for="nama">Nama:</label>
+            <input type="text" id="nama">
+
+            <label>Jenis Kelamin:</label>
+            <input type="radio" name="jk" value="Laki-laki">Laki-laki
+            <input type="radio" name="jk" value="Perempuan">Perempuan
+
+            <label for="agama">Agama:</label>
+            <select id="agama">
+                <option value="">-- Pilih Agama --</option>
+                <option value="Islam">Islam</option>
+                <option value="Kristen">Kristen</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Buddha">Buddha</option>
+                <option value="Konghucu">Konghucu</option>
+            </select>
+
+            <label>Status:</label>
+            <input type="radio" name="status" value="Aktif">Aktif
+            <input type="radio" name="status" value="Tidak Aktif">Tidak Aktif
+
+            <label for="jurusan">Jurusan:</label>
+            <select id="jurusan">
+                <option value="">-- Pilih Jurusan --</option>
+                <option value="Teknik Informatika">Teknologi Informasi</option>
+                <option value="Sistem Informasi">Sistem Informasi</option>
+            </select>
+
+            <label for="komentar">Komentar:</label>
+            <textarea id="komentar" rows="4"></textarea>
+
+            <button type="button" onclick="prosesData()">KIRIM</button>
+        </form>
+
+        <h3>Data Mahasiswa:</h3>
+        <div id="hasil"></div>
+    </div>
+
+    <script>
+        function prosesData() {
+            var nim = document.getElementById("nim").value;
+            var nama = document.getElementById("nama").value;
+            var jk = document.querySelector('input[name="jk"]:checked');
+            var agama = document.getElementById("agama").value;
+            var status = document.querySelector('input[name="status"]:checked');
+            var jurusan = document.getElementById("jurusan").value;
+            var komentar = document.getElementById("komentar").value;
+
+            var hasil = "<ul>";
+            hasil += "<li><strong>NIM:</strong> " + nim + "</li>";
+            hasil += "<li><strong>Nama:</strong> " + nama + "</li>";
+            hasil += "<li><strong>Jenis Kelamin:</strong> " + (jk ? jk.value : "Belum dipilih") + "</li>";
+            hasil += "<li><strong>Agama:</strong> " + (agama || "Belum dipilih") + "</li>";
+            hasil += "<li><strong>Status:</strong> " + (status ? status.value : "Belum dipilih") + "</li>";
+            hasil += "<li><strong>Jurusan:</strong> " + (jurusan || "Belum dipilih") + "</li>";
+            hasil += "<li><strong>Komentar:</strong> " + komentar + "</li>";
+            hasil += "</ul>";
+
+            document.getElementById("hasil").innerHTML = hasil;
+        }
+    </script>
+</body>
+</html>

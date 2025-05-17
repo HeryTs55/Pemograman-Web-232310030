@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Tiket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4faff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            margin-top: 25px;
+            background-color: #e6f2ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Form Pemesanan Tiket Travel</h2>
+        <label for="nama">Nama Pemesan:</label>
+        <input type="text" id="nama">
+
+        <label for="tujuan">Tujuan:</label>
+        <select id="tujuan">
+            <option value="">-- Pilih Tujuan --</option>
+            <option value="Jakarta">Jakarta</option>
+            <option value="Solo">Solo</option>
+            <option value="Surabaya">Surabaya</option>
+        </select>
+
+        <label for="kelas">Kelas:</label>
+        <select id="kelas">
+            <option value="">-- Pilih Kelas --</option>
+            <option value="Eksekutif">Eksekutif</option>
+            <option value="Bisnis">Bisnis</option>
+            <option value="Ekonomi">Ekonomi</option>
+        </select>
+
+        <label for="jumlah">Banyak Tiket:</label>
+        <input type="number" id="jumlah" min="1">
+
+        <label>Status:</label>
+        <input type="radio" name="status" value="Member"> Member
+        <input type="radio" name="status" value="Bukan Member"> Bukan Member
+
+        <button onclick="proses()">KIRIM</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function getHarga(tujuan, kelas) {
+            const hargaTiket = {
+                Jakarta: { Eksekutif: 70000, Bisnis: 40000, Ekonomi: 10000 },
+                Solo: { Eksekutif: 80000, Bisnis: 50000, Ekonomi: 20000 },
+                Surabaya: { Eksekutif: 90000, Bisnis: 60000, Ekonomi: 30000 }
+            };
+
+            return hargaTiket[tujuan][kelas] || 0;
+        }
+
+        function proses() {
+            const nama = document.getElementById("nama").value;
+            const tujuan = document.getElementById("tujuan").value;
+            const kelas = document.getElementById("kelas").value;
+            const jumlah = parseInt(document.getElementById("jumlah").value);
+            const status = document.querySelector('input[name="status"]:checked');
+
+            if (!nama || !tujuan || !kelas || !jumlah || !status) {
+                alert("Silakan lengkapi semua data.");
+                return;
+            }
+
+            const harga = getHarga(tujuan, kelas);
+            const subtotal = harga * jumlah;
+            const diskon = (status.value === "Member") ? subtotal * 0.10 : 0;
+            const total = subtotal - diskon;
+
+            document.getElementById("output").innerHTML = `
+                <ul>
+                    <li><strong>Nama Pemesan:</strong> ${nama}</li>
+                    <li><strong>Tujuan:</strong> ${tujuan}</li>
+                    <li><strong>Kelas:</strong> ${kelas}</li>
+                    <li><strong>Banyak Tiket:</strong> ${jumlah}</li>
+                    <li><strong>Status:</strong> ${status.value}</li>
+                    <li><strong>Harga per Tiket:</strong> Rp ${harga.toLocaleString()}</li>
+                    <li><strong>Subtotal:</strong> Rp ${subtotal.toLocaleString()}</li>
+                    <li><strong>Diskon:</strong> Rp ${diskon.toLocaleString()}</li>
+                    <li><strong>Total Bayar:</strong> Rp ${total.toLocaleString()}</li>
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html>

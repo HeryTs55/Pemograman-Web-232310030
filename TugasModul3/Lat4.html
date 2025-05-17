@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Perhitungan Saldo Tabungan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef7ff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #bbb;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            margin-top: 20px;
+            background: #e6f2ff;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            border-radius: 8px;
+        }
+
+        li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Perhitungan Saldo Tabungan</h2>
+
+        <label for="saldo">Saldo Awal:</label>
+        <input type="number" id="saldo" placeholder="Insert saldo">
+
+        <label for="bunga">Bunga per Bulan (%):</label>
+        <input type="number" id="bunga" placeholder="Insert bunga">
+
+        <label for="waktu">Lama Menabung (bulan):</label>
+        <input type="number" id="waktu" placeholder="Insert waktu">
+
+        <button onclick="hitungSaldo()">Hitung</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function hitungSaldo() {
+            let saldo = parseFloat(document.getElementById("saldo").value);
+            let bunga = parseFloat(document.getElementById("bunga").value);
+            let waktu = parseInt(document.getElementById("waktu").value);
+
+            if (isNaN(saldo) || isNaN(bunga) || isNaN(waktu)) {
+                alert("Mohon isi semua data dengan benar.");
+                return;
+            }
+
+            let outputHTML = "<ul>";
+            for (let i = 1; i <= waktu; i++) {
+                saldo += saldo * (bunga / 100);
+                outputHTML += `<li>Saldo Bulan ${i} = Rp. ${saldo.toFixed(0).toLocaleString()}</li>`;
+            }
+            outputHTML += "</ul>";
+
+            document.getElementById("output").innerHTML = outputHTML;
+        }
+    </script>
+</body>
+</html>

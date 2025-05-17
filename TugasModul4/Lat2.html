@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Latihan 2</title>
+</head>
+<body>
+    <h2>Penghitung Akar Persamaan Kuadrat</h2>
+    <p>Masukkan koefisien a, b, dan c dari persamaan <strong>ax² + bx + c = 0</strong>:</p>
+
+    <label for="a">a:</label>
+    <input type="number" id="a" step="any"><br><br>
+
+    <label for="b">b:</label>
+    <input type="number" id="b" step="any"><br><br>
+
+    <label for="c">c:</label>
+    <input type="number" id="c" step="any"><br><br>
+
+    <button onclick="hitungAkar()">Hitung Akar</button>
+
+    <div id="output" style="margin-top:20px;"></div>
+
+    <script>
+        function hitungAkar() {
+            var a = parseFloat(document.getElementById("a").value);
+            var b = parseFloat(document.getElementById("b").value);
+            var c = parseFloat(document.getElementById("c").value);
+
+            if (a === 0) {
+                alert("Nilai a tidak boleh nol.");
+                return;
+            }
+
+            var D = b * b - 4 * a * c;
+            var hasil = "";
+
+            if (D > 0) {
+                var x1 = (-b + Math.sqrt(D)) / (2 * a);
+                var x2 = (-b - Math.sqrt(D)) / (2 * a);
+                hasil = `Diskriminan (D) = ${D}<br><strong>Akar real dan berbeda:</strong><br>x₁ = ${x1}<br>x₂ = ${x2}`;
+            } else if (D === 0) {
+                var x = -b / (2 * a);
+                hasil = `Diskriminan (D) = 0<br><strong>Akar real dan kembar:</strong><br>x = ${x}`;
+            } else {
+                var bagianReal = (-b / (2 * a)).toFixed(2);
+                var bagianImajinasi = (Math.sqrt(-D) / (2 * a)).toFixed(2);
+                hasil = `Diskriminan (D) = ${D}<br><strong>Akar kompleks (imajiner):</strong><br>x₁ = ${bagianReal} + ${bagianImajinasi}i<br>x₂ = ${bagianReal} - ${bagianImajinasi}i`;
+            }
+
+            document.getElementById("output").innerHTML = hasil;
+        }
+    </script>
+</body>
+</html>
