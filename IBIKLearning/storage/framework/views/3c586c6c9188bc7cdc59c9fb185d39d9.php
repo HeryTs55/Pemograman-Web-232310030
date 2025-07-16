@@ -1,1 +1,0 @@
-<?php /**PATH D:\Semester 4\Lab Pemrograman Web\Pertemuan 8\IBIKLearning_App\resources\views/users/profile.blade.php ENDPATH**/ ?>
